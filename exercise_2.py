@@ -26,26 +26,30 @@ items = pd.read_csv(r'C:\Users\HLOGIZNBUCKS\Downloads\Data\Brazilian_E-commerce\
 products = pd.read_csv(r'C:\Users\HLOGIZNBUCKS\Downloads\Data\Brazilian_E-commerce\olist_products_dataset.csv')
 
 # Lets merge them
-df = pd.merge(orders, items, on='order_id')
-df = pd.merge(df, products, on='product_id')
+df = pd.merge(orders, items, on='order_id', how='left')
+df = pd.merge(df, products, on='product_id', how='left')
 
 # Create a new column
 df['order_value'] = df['price'] + df['freight_value']
 
 # Lets calculate total revenue
-revenue = df['order_value'].sum()
+total_revenue = df['order_value'].sum()
+print(total_revenue)
 
 # Lets calculate average order value
-order_value = df['order_value'].mean()
+order_totals = df.groupby('order_id')['order_value'].sum()
+avg_order_value = order_totals.mean()
+print(avg_order_value)
 
 # Lets calculate revenue per category
-revenue_category = df.groupby('product_category_name')['order_value'].sum()
+revenue_per_category = df.groupby('product_category_name')['order_value'].sum().sort_values(ascending=False)
+print(revenue_per_category)
 
 # Get top 10 categories
-top_10_revenue = df.groupby('product_category_name')['order_value'].sum().sort_values(ascending=False).head(10)
+top_10 = revenue_per_category.head(10)
 
 plt.figure(figsize=(10, 6))
-top_10_revenue.plot(kind='bar', color='skyblue')
+top_10.plot(kind='bar', color='skyblue')
 plt.title('Top 10 Product Categories by Revenue')
 plt.xlabel('Category')
 plt.ylabel('Total Revenue (BRL)')
