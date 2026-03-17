@@ -70,43 +70,59 @@ FROM orders;
 -- Find the top 10 customers with the most orders.
 
 SELECT
-	c.customer_id,
-	COUNT(o.order_id) AS order_count
-FROM customers c
-LEFT JOIN orders o ON c.customer_id = o.customer_id
-GROUP BY c.customer_id
-ORDER BY order_count DESC
+	o.customer_id,
+	COUNT(o.order_id) AS total_orders
+FROM orders o
+GROUP BY o.customer_id
+ORDER BY total_orders DESC
 LIMIT 10;
 
--- Calculate total revenue per product category.
+-- Total Revenue per Product Category
 
 SELECT
 	p.product_category_name,
-	SUM(oi.price) AS total_revenue
+	SUM(oi.price + oi.freight_value) AS total_revenue
 FROM order_items oi
-JOIN products p ON oi.product_id = p.product_id
+JOIN products p
+	ON oi.product_id = p.product_id
 GROUP BY p.product_category_name
 ORDER BY total_revenue DESC;
 
--- Find average order value.
+-- Find average order value
 
-SELECT 
-    AVG(order_total) AS average_order_value
+SELECT
+	AVG(order_total) AS avg_order_value
 FROM (
-    SELECT 
-        order_id,
-        SUM(price + freight_value) AS order_total
-    FROM order_items
-    GROUP BY order_id
-) AS order_totals;
+	SELECT
+		order_id,
+		SUM(price + freight_value) AS order_total
+	FROM order_items
+	GROUP BY order_id
+) sub;
 
--- Find the month with the highest revenue.
+/*
 
-SELECT 
-    TO_CHAR(o.order_purchased_timestamp, 'YYYY-MM') AS month,
-    ROUND(SUM(oi.price + oi.freight_value)::numeric, 2) AS total_revenue
-FROM order_items oi
-JOIN orders o ON oi.order_id = o.order_id
-GROUP BY TO_CHAR(o.order_purchased_timestamp, 'YYYY-MM')
+sub is an alias for the subquery and the subquery code runs first
+PostgreSQL tells the computerm take that temporary list we just made and treat it like a table named sub.
+
+The outer query looks at that virtual table named sub and calculates the average of the order_total column.
+
+*/
+
+-- Find the month with the highest revenue
+
+SELECT
+	DATE_TRUNC('month', o.order_purchased_timestamp) AS month,
+	SUM(oi.price + oi.freight_value) AS total_revenue
+FROM orders o
+JOIN order_items oi
+	ON o.order_id = oi.order_id
+GROUP BY month
 ORDER BY total_revenue DESC
 LIMIT 1;
+
+
+
+
+
+
