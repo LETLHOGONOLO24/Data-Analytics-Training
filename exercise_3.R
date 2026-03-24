@@ -1,12 +1,12 @@
 library(tidyverse)
 
 # Load the datasets
-orders <- read.csv('C:/Users/HLOGIZNBUCKS/Downloads/Data/Brazilian_E-commerce/olist_orders_dataset.csv')
-order_items <- read.csv('C:/Users/HLOGIZNBUCKS/Downloads/Data/Brazilian_E-commerce/olist_order_items_dataset.csv')
-products <- read.csv('C:/Users/HLOGIZNBUCKS/Downloads/Data/Brazilian_E-commerce/olist_products_dataset.csv')
+orders <- read.csv('C:/Users/HLOGIZNBUCKS/Downloads/Data-Analytics-Training/Brazilian_E-commerce/olist_orders_dataset.csv')
+order_items <- read.csv('C:/Users/HLOGIZNBUCKS/Downloads/Data-Analytics-Training/Brazilian_E-commerce/olist_order_items_dataset.csv')
+products <- read.csv('C:/Users/HLOGIZNBUCKS/Downloads/Data-Analytics-Training/Brazilian_E-commerce/olist_products_dataset.csv')
 
 # Join the datasets
-df <- orders_items %>%
+df <- order_items %>%
   left_join(products, by = "product_id") %>%
   left_join(orders, by = "order_id")
 
