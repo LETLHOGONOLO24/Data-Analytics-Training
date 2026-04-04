@@ -13,8 +13,8 @@ Tasks
 
 import pandas as pd
 
-orders = pd.read_csv("orders.csv")
-order_items = pd.read_csv("order_items.csv")
+orders = pd.read_csv(r"C:\Users\HLOGIZNBUCKS\Downloads\Data-Analytics-Training\Brazilian_E-commerce\olist_orders_dataset.csv")
+order_items = pd.read_csv(r"C:\Users\HLOGIZNBUCKS\Downloads\Data-Analytics-Training\Brazilian_E-commerce\olist_order_items_dataset.csv")
 
 df = order_items.merge(orders, on='order_id')
 df['order_value'] = df['price'] + df['freight_value']
