@@ -22,7 +22,7 @@ FROM order_items oi
 JOIN products p ON oi.product_id = p.product_id
 GROUP BY p.product_category_name, oi.product_id;
 
--- Rank the dates in the orders table by how many orders were placed
+--- Rank the dates in the orders table by how many orders were placed
 
 SELECT 
     CAST(order_purchased_timestamp AS DATE) AS purchase_date,
