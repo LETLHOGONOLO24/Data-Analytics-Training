@@ -13,7 +13,7 @@ Create a simple funnel:
 
 */
 
--- Count orders by status
+--- Count orders by status
 
 SELECT 
     order_status,
