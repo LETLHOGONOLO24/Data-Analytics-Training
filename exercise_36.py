@@ -1,6 +1,5 @@
 """
 
-
 Exercise_36
 
 -Create customer features:
