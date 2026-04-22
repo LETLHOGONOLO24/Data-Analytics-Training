@@ -1,6 +1,5 @@
 """
 
-
 Exercise_12 - GROUPBY + ADVANCED ANALYSIS
 
 -Compute revenue per customer
