@@ -8,8 +8,6 @@ Exercise_12 - GROUPBY + ADVANCED ANALYSIS
 -Calculate monthly revenue
 -Compute cumulative revenue
 -Visualize revenue trend
-
-
 """
 
 import pandas as pd
