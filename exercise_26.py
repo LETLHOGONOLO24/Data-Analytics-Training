@@ -10,7 +10,6 @@ Tasks
 -Apply KMeans clustering
 -Assign customers to clusters
 
-
 """
 
 import pandas as pd
