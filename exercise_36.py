@@ -2,6 +2,7 @@
 
 Exercise_36
 
+
 -Create customer features:
     total spending
     number of orders
