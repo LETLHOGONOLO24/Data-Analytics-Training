@@ -9,6 +9,7 @@ Exercise_36
 -Sacale features using StandardScaler
 -Compare before vs after scaling
 
+
 """
 
 import pandas as pd
